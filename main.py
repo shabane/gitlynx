@@ -9,14 +9,17 @@ import json
 
 def err(msg: str):
     print(f"Help: set {msg} varialbe")
-    raise("you forgot to set environvariable")
+    raise Exception(f"you forgot to set environvariable {msg}")
+
+def resErr(err: int):
+    st.error(err)
 
 if __name__=="__main__":
     token = os.environ.get("TOKEN") if os.environ.get("TOKEN") else err("TOKEN")
     owner = os.environ.get("OWNER") if os.environ.get("OWNER") else err("OWNER")
     repo = os.environ.get("REPO") if os.environ.get("REPO") else err("REPO")
     
-    tab_file, tab_text = st.tabs(["File", "Text"])
+    tab_file, tab_text, tab_link = st.tabs(["File", "Text", "Link"])
     
     with tab_file:
         fli = st.file_uploader(label="Select File", accept_multiple_files=False, help="file size should be under 100MB")
@@ -46,5 +49,14 @@ if __name__=="__main__":
             else:
                 st.error("file size should be under 100MB")
     with tab_text:
-        st.info("i will do it :)")
-        # TODO: craete this tab to place plain text on github
+        text = st.text_area("Paste your text here", placeholder="write your text here.", height=400)
+        if st.button("Upload"):
+            fli_name = hashlib.md5(bytes(text, encoding='utf-8')).hexdigest() + ".txt"
+            fli = base64.b64encode(bytes(text, encoding='utf-8')).decode()
+            res = github.upload(token, fli_name, fli, repo, owner)
+            if res.status_code == 201:
+                res = json.loads(res.content)
+                st.code(res['content']['download_url'])
+            else:
+                resErr(res.status_code)
+
