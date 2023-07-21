@@ -1,4 +1,4 @@
-    #!/usr/bin/env python3
+#!/usr/bin/env python3
 import streamlit as st
 import github
 import hashlib
@@ -12,7 +12,10 @@ def err(msg: str):
     raise Exception(f"you forgot to set environvariable {msg}")
 
 def resErr(err: int):
-    st.error(err)
+    if err == 429:
+        st.error("We had too many upload today, try again later.")
+    else:
+        st.error(f"there were an error with status code of: {res.status_code}")
 
 if __name__=="__main__":
     token = os.environ.get("TOKEN") if os.environ.get("TOKEN") else err("TOKEN")
@@ -39,13 +42,11 @@ if __name__=="__main__":
                     res = json.loads(res.content)
                     st.success("Done")
                     st.code(res['content']['download_url'])
-                elif res.status_code == 429:
-                    st.error("We had too many upload today, try again later.")
                 elif res.status_code == 422:
                     st.warning("this file was exist before!")
                     st.code(f"https://raw.githubusercontent.com/{owner}/{repo}/master/{fli_name}")
                 else:
-                    st.error(f"there were an error with status code of: {res.status_code}")
+                    resErr(res.status_code)
             else:
                 st.error("file size should be under 100MB")
     with tab_text:
@@ -57,6 +58,11 @@ if __name__=="__main__":
             if res.status_code == 201:
                 res = json.loads(res.content)
                 st.code(res['content']['download_url'])
+            elif res.status_code == 422:
+                    st.warning("this file was exist before!")
+                    st.code(f"https://raw.githubusercontent.com/{owner}/{repo}/master/{fli_name}")
             else:
                 resErr(res.status_code)
-
+    with tab_link:
+        st.write("i will do this too :)")
+        #TODO: write a link shortner with github! this will requier github pages this a short url
