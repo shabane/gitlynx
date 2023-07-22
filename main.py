@@ -6,6 +6,7 @@ import os
 import base64
 import json
 import tools
+import config
 
 
 def err(msg: str):
@@ -23,6 +24,14 @@ if __name__=="__main__":
     owner = os.environ.get("OWNER") if os.environ.get("OWNER") else err("OWNER")
     repo = os.environ.get("REPO") if os.environ.get("REPO") else err("REPO")
     pages_link = os.environ.get("PAGES") if os.environ.get("PAGES") else err("PAGES")
+
+    st.set_page_config(
+    page_title = config.PAGE_TITLE,
+    page_icon = config.FAVICON,
+    layout = config.LAYOUT,
+    initial_sidebar_state = config.INITIAL_SIDEBAR_STATE,
+    menu_items = config.MENU_ITEM,
+)
     
     tab_file, tab_text, tab_link = st.tabs(["File", "Text", "Link"])
     
