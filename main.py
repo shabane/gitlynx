@@ -22,7 +22,7 @@ if __name__=="__main__":
     token = os.environ.get("TOKEN") if os.environ.get("TOKEN") else err("TOKEN")
     owner = os.environ.get("OWNER") if os.environ.get("OWNER") else err("OWNER")
     repo = os.environ.get("REPO") if os.environ.get("REPO") else err("REPO")
-    #TODO: get an environ var to indicate that we use github pages or not. 
+    pages_link = os.environ.get("PAGES") if os.environ.get("PAGES") else err("PAGES")
     
     tab_file, tab_text, tab_link = st.tabs(["File", "Text", "Link"])
     
@@ -77,6 +77,7 @@ if __name__=="__main__":
                 if res.status_code != 201:
                     resErr(res.status_code)
                 res = json.loads(res.content)
-                st.code(res['content']['download_url'])
+                st.code(pages_link+"/"+fli_name)
+                st.warning("it may take some minute to deploy the link")
             else:
                 st.error("URL is invalid")
