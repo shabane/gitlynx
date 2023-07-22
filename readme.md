@@ -30,6 +30,8 @@ so i decide to create a new one which is based on other site that is still open.
 if some time Github get banned by Iran, we can replace the github module with anoter module
 to save and recive file to/from another site.
 
+> and or we can use a CDN like CloudFlare to cercuvment censorship.
+
 
 
 ### How to deploy our own?
