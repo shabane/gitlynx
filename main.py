@@ -5,6 +5,7 @@ import hashlib
 import os
 import base64
 import json
+import tools
 
 
 def err(msg: str):
@@ -21,6 +22,7 @@ if __name__=="__main__":
     token = os.environ.get("TOKEN") if os.environ.get("TOKEN") else err("TOKEN")
     owner = os.environ.get("OWNER") if os.environ.get("OWNER") else err("OWNER")
     repo = os.environ.get("REPO") if os.environ.get("REPO") else err("REPO")
+    #TODO: get an environ var to indicate that we use github pages or not. 
     
     tab_file, tab_text, tab_link = st.tabs(["File", "Text", "Link"])
     
@@ -64,5 +66,17 @@ if __name__=="__main__":
             else:
                 resErr(res.status_code)
     with tab_link:
-        st.write("i will do this too :)")
-        #TODO: write a link shortner with github! this will requier github pages this a short url
+        link = st.text_input(label="URL shortner", placeholder="place your URL here to be shorten")
+        if st.button("Make it Short"):
+            if tools.isValidateLink(link):
+                fli_name = tools.chooseName()
+                while fli_name in github.getContents(token, repo, owner):
+                    fli_name = tools.chooseName()
+                fli = base64.b64encode(bytes(tools.makeShort(link), encoding='utf-8')).decode()
+                res = github.upload(token, fli_name+".html", fli, repo, owner)
+                if res.status_code != 201:
+                    resErr(res.status_code)
+                res = json.loads(res.content)
+                st.code(res['content']['download_url'])
+            else:
+                st.error("URL is invalid")
