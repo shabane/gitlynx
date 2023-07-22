@@ -21,3 +21,8 @@ def chooseName() -> str:
     for i in range(length):
         name += random.choice(_chars)
     return name
+
+def makeShort(link: str) -> str:
+    with open('theme.html', 'r') as theme:
+        theme = theme.read()
+        return theme.replace("{url}", link, 3)
