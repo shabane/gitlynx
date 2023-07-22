@@ -59,6 +59,7 @@ if __name__=="__main__":
             res = github.upload(token, fli_name, fli, repo, owner)
             if res.status_code == 201:
                 res = json.loads(res.content)
+                st.success("Done")
                 st.code(res['content']['download_url'])
             elif res.status_code == 422:
                     st.warning("this file was exist before!")
