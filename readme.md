@@ -72,3 +72,7 @@ nohup streamlit run ~/gitlynx/main.py &
 
 Kidding me!? i live in IRAN which get worst every day!
 donation **help me** get through!
+
+[Iranian Donation Service](https://daramet.com/shabane)
+
+[Donation with CryptoCurrency](https://shabane.github.io/donate.html)
