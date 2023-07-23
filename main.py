@@ -48,7 +48,7 @@ if __name__=="__main__":
             if (len(fli)/(2**20)) < 100:
                 fli_name = hashlib.md5(fli).hexdigest() + '.' + fli_ext
                 fli = base64.b64encode(fli).decode()
-                res = github.upload(token, fli_name, fli, repo, owner, '/files')
+                res = github.upload(token, fli_name, fli, repo, owner, 'files')
                 if res.status_code == 201:
                     res = json.loads(res.content)
                     st.success("Done")
@@ -73,6 +73,8 @@ if __name__=="__main__":
             elif res.status_code == 422:
                     st.warning("this file was exist before!")
                     st.code(f"https://raw.githubusercontent.com/{owner}/{repo}/master/files/{fli_name}")
+                    st.divider()
+                    st.code(res.content)
             else:
                 resErr(res.status_code)
     with tab_link:
@@ -91,3 +93,4 @@ if __name__=="__main__":
                 st.warning("it may take some minute to deploy the link")
             else:
                 st.error("URL is invalid")
+#TODO: use os.path.join()
