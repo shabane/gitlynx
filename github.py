@@ -17,7 +17,7 @@ def upload(token: str, file_name: str, data: str, repo: str, owner: str, path: s
 
     data = json.dumps(data)
     if path:
-        response = requests.put(f'https://api.github.com/repos/{owner}/{repo}/contents/files/{path}/{file_name}', headers=headers, data=data)
+        response = requests.put(f'https://api.github.com/repos/{owner}/{repo}/contents/{path}/{file_name}', headers=headers, data=data)
     else:
         response = requests.put(f'https://api.github.com/repos/{owner}/{repo}/contents/{file_name}', headers=headers, data=data)
     if response.status_code != 201:
