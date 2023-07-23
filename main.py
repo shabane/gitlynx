@@ -48,7 +48,7 @@ if __name__=="__main__":
             if (len(fli)/(2**20)) < 100:
                 fli_name = hashlib.md5(fli).hexdigest() + '.' + fli_ext
                 fli = base64.b64encode(fli).decode()
-                res = github.upload(token, fli_name, fli, repo, owner)
+                res = github.upload(token, fli_name, fli, repo, owner, '/files')
                 if res.status_code == 201:
                     res = json.loads(res.content)
                     st.success("Done")
@@ -65,7 +65,7 @@ if __name__=="__main__":
         if st.button("Upload"):
             fli_name = hashlib.md5(bytes(text, encoding='utf-8')).hexdigest() + ".txt"
             fli = base64.b64encode(bytes(text, encoding='utf-8')).decode()
-            res = github.upload(token, fli_name, fli, repo, owner)
+            res = github.upload(token, fli_name, fli, repo, owner, 'files')
             if res.status_code == 201:
                 res = json.loads(res.content)
                 st.success("Done")
