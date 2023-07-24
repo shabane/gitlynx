@@ -74,7 +74,6 @@ if __name__=="__main__":
                     st.warning("this file was exist before!")
                     st.code(f"https://raw.githubusercontent.com/{owner}/{repo}/master/files/{fli_name}")
                     st.divider()
-                    st.code(res.content)
             else:
                 resErr(res.status_code)
     with tab_link:
