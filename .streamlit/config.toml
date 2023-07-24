@@ -2,9 +2,6 @@
 base = "light"
 
 [server]
-port = 8080
-runOnSave = false
-address = "0.0.0.0"
 maxUploadSize = 100
 
 [logger]
