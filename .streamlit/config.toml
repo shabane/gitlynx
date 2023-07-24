@@ -5,7 +5,6 @@ base = "light"
 port = 8080
 runOnSave = false
 address = "0.0.0.0"
-enableCORS = false
 maxUploadSize = 100
 
 [logger]
