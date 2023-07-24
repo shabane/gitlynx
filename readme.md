@@ -36,13 +36,15 @@ to save and recive file to/from another site.
 
 ### How to deploy our own?
 
-> well its easy with this command
+> you can deploy it on [streamlit](https://share.streamlit.io/) for free
+>
+> or on your own server. well its easy with this command
 
 ```bash
 curl https://raw.githubusercontent.com/shabane/gitlynx/master/install.sh | sh
 ```
 
-> or you can run and install it manualy
+> or you can install  and run it manualy
 
 1. clone the repo and set 3 environment varialbes that explained below.
 
