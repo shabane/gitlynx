@@ -39,7 +39,7 @@ to save and recive file to/from another site.
 > well its easy with this command
 
 ```bash
-curl https://raw.githubusercontent.com/shabane/gitlynx/master/install.sh
+curl https://raw.githubusercontent.com/shabane/gitlynx/master/install.sh | sh
 ```
 
 > or you can run and install it manualy
