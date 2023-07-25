@@ -20,7 +20,7 @@ def chooseName() -> str:
     name = ""
     for i in range(length):
         name += random.choice(_chars)
-    return name
+    return name if name != 'index' else chooseName()
 
 def makeShort(link: str) -> str:
     with open('theme.html', 'r') as theme:
