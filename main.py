@@ -7,6 +7,7 @@ import base64
 import json
 import tools
 import config
+from os import path
 
 
 def err(msg: str):
@@ -62,14 +63,17 @@ if __name__=="__main__":
                 st.error("file size should be under 100MB")
     with tab_text:
         text = st.text_area("Paste your text here", placeholder="write your text here.", height=400)
-        if st.button("Upload"):
-            fli_name = hashlib.md5(bytes(text, encoding='utf-8')).hexdigest() + ".txt"
+        if st.button("Paste"):
+            fli_name = tools.chooseName() + ".txt"
             fli = base64.b64encode(bytes(text, encoding='utf-8')).decode()
-            res = github.upload(token, fli_name, fli, repo, owner, 'files')
+            res = github.upload(token, fli_name, fli, repo, owner)
             if res.status_code == 201:
                 res = json.loads(res.content)
-                st.success("Done")
+                st.success("instanse link: ")
                 st.code(res['content']['download_url'])
+                st.divider()
+                st.warning("This link is shorten but you can use 1 minute later")
+                st.code(path.join(pages_link, fli_name))
             elif res.status_code == 422:
                     st.warning("this file was exist before!")
                     st.code(f"https://raw.githubusercontent.com/{owner}/{repo}/master/files/{fli_name}")
