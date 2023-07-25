@@ -34,6 +34,8 @@ if __name__=="__main__":
     menu_items = config.MENU_ITEM,
 )
     
+    st.write("> Discover a versatile platform for **file sharing**, **pasting text**, and **shortening URLs** effortlessly.")
+    
     tab_file, tab_text, tab_link = st.tabs(["File", "Text", "Link"])
     
     with tab_file:
@@ -97,3 +99,5 @@ if __name__=="__main__":
             else:
                 st.error("URL is invalid")
 #TODO: use os.path.join()
+
+    st.warning(f"> Note that all your file will publicly avilable on https://github.com/{owner}/{repo}")
