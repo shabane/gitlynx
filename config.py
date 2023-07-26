@@ -13,7 +13,7 @@ GitLynx is a set of tools that let you store your data and get a link of them!
 
 Author: [Arya Shabane](mailto:m.mohamadshabane@gmail.com)
 
-Github: https://github.com/shabane
+Github: https://github.com/gitlynx-ir/
 """
 MENU_ITEM = {
     'Report a bug': "https://github.com/shabane/gitlynx/issues/",
